@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">/* ========================================================
+   ESTILOS GENERALES (Fondo y Textos)
+======================================================== */
+QMainWindow, QWidget#centralwidget {
+    background-color: #F4F7F9; /* Un gris azulado muy claro y limpio */
+    font-family: &quot;Segoe UI&quot;, Arial, sans-serif;
+    color: #333333;
+}
+
+QLabel {
+    font-size: 14px;
+    font-weight: bold;
+    color: #2C3E50;
+}
+
+/* Título principal del Login */
+QLabel#lbl_titulo_login {
+    font-size: 24px;
+    color: #0056b3;
+    font-weight: bold;
+}
+
+/* Mensaje de error en rojo */
+QLabel#lbl_mensaje {
+    color: #E74C3C;
+    font-weight: normal;
+    font-size: 12px;
+}
+
+/* ========================================================
+   QSTACKEDWIDGET (Contenedor principal)
+======================================================== */
+QStackedWidget {
+    background-color: transparent;
+    border: none;
+}
+
+/* ========================================================
+   CAJAS DE TEXTO (QLineEdit - Login y Formularios)
+======================================================== */
+QLineEdit {
+    background-color: #FFFFFF;
+    border: 2px solid #DCE4EC;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #2C3E50;
+}
+
+/* Efecto al hacer clic en la caja de texto */
+QLineEdit:focus {
+    border: 2px solid #3498DB; /* Borde azul cuando escribes */
+    background-color: #FDFEFE;
+}
+
+/* ========================================================
+   BOTONES (QPushButton)
+======================================================== */
+QPushButton {
+    background-color: #3498DB; /* Azul corporativo */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Efecto al pasar el mouse */
+QPushButton:hover {
+    background-color: #2980B9;
+}
+
+/* Efecto al hacer clic */
+QPushButton:pressed {
+    background-color: #1F618D;
+}
+
+/* Botón secundario o de Cancelar/Eliminar (puedes asignarle una clase o nombre específico luego si quieres) */
+QPushButton#btn_eliminar {
+    background-color: #E74C3C;
+}
+QPushButton#btn_eliminar:hover {
+    background-color: #C0392B;
+}
+
+/* ========================================================
+   PESTAÑAS DEL DASHBOARD (QTabWidget)
+======================================================== */
+QTabWidget::pane {
+    border: 1px solid #DCE4EC;
+    background-color: #FFFFFF;
+    border-radius: 6px;
+    margin-top: -1px; /* Oculta la línea debajo de las pestañas */
+}
+
+QTabBar::tab {
+    background-color: #EAECEE;
+    color: #7F8C8D;
+    border: 1px solid #DCE4EC;
+    border-bottom-color: #DCE4EC; /* Igual que el panel */
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    padding: 10px 20px;
+    margin-right: 2px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* Efecto al pasar el mouse por las pestañas */
+QTabBar::tab:hover {
+    background-color: #D6DBDF;
+}
+
+/* Pestaña activa (La que estás viendo) */
+QTabBar::tab:selected {
+    background-color: #FFFFFF;
+    color: #2C3E50;
+    border-bottom-color: #FFFFFF; /* Se fusiona visualmente con el panel */
+}
+
+/* ========================================================
+   TABLAS (QTableWidget - Para mostrar los destinos/reservas)
+======================================================== */
+QTableWidget {
+    background-color: #FFFFFF;
+    border: 1px solid #DCE4EC;
+    border-radius: 6px;
+    gridline-color: #ECF0F1;
+    font-size: 13px;
+    color: #34495E;
+}
+
+QHeaderView::section {
+    background-color: #34495E;
+    color: white;
+    padding: 6px;
+    border: 1px solid #2C3E50;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+QTableWidget::item:selected {
+    background-color: #3498DB;
+    color: white;
+}</string>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QStackedWidget" name="stackedWidget">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="page">
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QFrame" name="frame">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1,1,1">
+           <item>
+            <widget class="QFrame" name="frame_2">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout">
+              <item>
+               <widget class="QLabel" name="label">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Iniciar Sesion</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="frame_3">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_2">
+              <item>
+               <widget class="QLineEdit" name="txt_usuario">
+                <property name="layoutDirection">
+                 <enum>Qt::LeftToRight</enum>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <property name="placeholderText">
+                 <string>Usuario</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="txt_password">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="echoMode">
+                 <enum>QLineEdit::Password</enum>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <property name="placeholderText">
+                 <string>Contrasena</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="lbl_mensaje">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="frame_4">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_3">
+              <item>
+               <widget class="QPushButton" name="btn_login">
+                <property name="text">
+                 <string>Iniciar</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_2">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QFrame" name="frame_5">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_6">
+           <item>
+            <widget class="QTabWidget" name="tabWidget">
+             <property name="currentIndex">
+              <number>0</number>
+             </property>
+             <widget class="QWidget" name="tabla_destino">
+              <attribute name="title">
+               <string>Destinos</string>
+              </attribute>
+              <layout class="QVBoxLayout" name="verticalLayout_7">
+               <item>
+                <widget class="QFrame" name="frame_6">
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <layout class="QHBoxLayout" name="horizontalLayout_3">
+                  <item>
+                   <widget class="QLineEdit" name="txt_nombre_destino">
+                    <property name="placeholderText">
+                     <string>Destino</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="txt_costo_destino">
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="placeholderText">
+                     <string>Costo</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item>
+                <widget class="QTableWidget" name="tabla_destinos"/>
+               </item>
+               <item>
+                <widget class="QFrame" name="frame_7">
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <layout class="QHBoxLayout" name="horizontalLayout_4">
+                  <item>
+                   <widget class="QPushButton" name="btn_eliminar_destino">
+                    <property name="text">
+                     <string>Eliminar</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="btn_agregar_destino">
+                    <property name="text">
+                     <string>Guardar</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QWidget" name="tab_2">
+              <attribute name="title">
+               <string>Paquetes</string>
+              </attribute>
+             </widget>
+             <widget class="QWidget" name="tab_3">
+              <attribute name="title">
+               <string>Reservas</string>
+              </attribute>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
