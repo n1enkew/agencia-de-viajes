@@ -31,28 +31,29 @@ class AgenciaViajes(QMainWindow):
     def verificar_login(self):
         # Obtener los textos de los QLineEdit
         usuario = self.ui.txt_usuario.text()
-        password = self.ui.txt_password.text()
+        password_ingresada = self.ui.txt_password.text()
         
         # Hashear la contraseña que ingresó el usuario
-        password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        password = hashlib.sha256(password_ingresada.encode('utf-8')).hexdigest()
         
         # Conectar a BD y verificar
         conexion = ConexionBD().obtener_conexion()
-        cursor = conexion.cursor(dictionary=True) # dictionary=True para poder acceder por nombre de columna
+        cursor = conexion.cursor(buffered=True, dictionary=True) # dictionary=True para poder acceder por nombre de columna
         
-        sql = "SELECT * FROM Usuario WHERE username = %s AND password = %s"
-        cursor.execute(sql, (usuario, password))
-        resultado = cursor.fetchone()
-        
-        if resultado:
-            # Login exitoso: Cambiar a la página del Dashboard (Índice 1)
-            self.ui.stackedWidget.setCurrentIndex(1)
-            self.ui.txt_usuario.clear()
-            self.ui.txt_password.clear()
-        else:
-            # Login fallido: Mostrar mensaje de error
-            self.ui.lbl_mensaje.setText("Usuario o contraseña incorrectos")
-            self.ui.lbl_mensaje.setStyleSheet("color: red;")
+        try:
+            sql = "SELECT * FROM Usuario WHERE username = %s AND password = %s"
+            cursor.execute(sql, (usuario, password))
+            resultado = cursor.fetchone()
+            
+            if resultado:
+                self.ui.stackedWidget.setCurrentIndex(1)
+                self.ui.txt_usuario.clear()
+                self.ui.txt_password.clear()
+            else:
+                self.ui.lbl_mensaje.setText("Usuario o contraseña incorrectos")
+                self.ui.lbl_mensaje.setStyleSheet("color: red;")
+        finally:
+            cursor.close()
     
     def cargar_destinos(self):
         """Lee los destinos de la BD y los muestra en el QTableWidget"""
@@ -61,6 +62,8 @@ class AgenciaViajes(QMainWindow):
         
         conexion = ConexionBD().obtener_conexion()
         cursor = conexion.cursor(buffered=True)
+
+        self.ui.tabla_destinos.verticalHeader().setVisible(False)
         
         try:
             cursor.execute("SELECT idDestino, nombre, costo FROM Destino")
@@ -70,12 +73,13 @@ class AgenciaViajes(QMainWindow):
             
             for fila_num, fila_datos in enumerate(resultados):
                 self.ui.tabla_destinos.insertRow(fila_num)
-                # Convertimos cada dato a string para meterlo en la tabla
                 self.ui.tabla_destinos.setItem(fila_num, 0, QTableWidgetItem(str(fila_datos[0])))
                 self.ui.tabla_destinos.setItem(fila_num, 1, QTableWidgetItem(str(fila_datos[1])))
                 self.ui.tabla_destinos.setItem(fila_num, 2, QTableWidgetItem(str(fila_datos[2])))
         except Exception as e:
             print(f"Error al cargar destinos: {e}")
+        finally:
+            cursor.close()
 
     def agregar_destino(self):
         """Inserta un nuevo destino en la BD"""
@@ -100,6 +104,8 @@ class AgenciaViajes(QMainWindow):
             self.cargar_destinos()
         except Exception as e:
             print(f"Error al agregar destino: {e}")
+        finally:
+            cursor.close()
 
     def eliminar_destino(self):
         """Elimina el destino seleccionado en la tabla"""
@@ -123,6 +129,8 @@ class AgenciaViajes(QMainWindow):
             self.cargar_destinos()
         except Exception as e:
             print(f"Error al eliminar destino: {e}")
+        finally:
+            cursor.close()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
